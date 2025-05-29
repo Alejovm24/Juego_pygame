@@ -1,6 +1,6 @@
 import pygame
 import random
-# Inicializar PyGame
+
 pygame.init()
 width, height = 1000, 800
 screen = pygame.display.set_mode((width, height))
@@ -17,7 +17,6 @@ def apply_brightness_to_screen():
     dark_surface.fill((brillo, brillo, brillo))  
     screen.blit(dark_surface, (0, 0), special_flags=pygame.BLEND_RGB_MULT)
 
-# Función para dibujar fondo con brillo
 def draw_background():
     screen.blit(background_image_start_game, (0, 0))  
     apply_brightness_to_screen()
@@ -27,7 +26,7 @@ arena_top    = 90
 arena_right  = width - 30
 arena_bottom = height - 90
 # Variables de configuración
-dificultad = 2  # 0 = Fácil, 1 = Medio, 2 = Difícil
+dificultad = 0  # 0 = Fácil, 1 = Medio, 2 = Difícil
 brillo = 100  # Brillo entre 0 y 100
 
 # Función para ajustar el brillo de los colores
@@ -62,7 +61,7 @@ class Button:
     def is_clicked(self, event):
         return event.type == pygame.MOUSEBUTTONDOWN and self.rect.collidepoint(event.pos)
 
-# Función para la pantalla de configuración con botón de regreso
+
 def show_settings():
     global dificultad, brillo
     buttons = [
@@ -102,7 +101,7 @@ def show_settings():
         pygame.display.flip()
 
 def exit_settings():
-    main_menu()  # Retorna al menú principal sin cerrar el juego
+    main_menu()  
 
 # Funciones de configuración
 def set_difficulty(level):
@@ -153,9 +152,9 @@ class Snake:
                 img = crocodile_img
             else:
                 continue
-            # Reducir el área de colisión al 80% y centrarla
+            # Reducir el área de colisión 
             w, h = img.get_width(), img.get_height()
-            shrink_factor = 0.8  # 80% del tamaño original
+            shrink_factor = 0.8  
             new_w, new_h = int(w * shrink_factor), int(h * shrink_factor)
             offset_x = (w - new_w) // 2
             offset_y = (h - new_h) // 2
@@ -171,7 +170,7 @@ class Snake:
 # Clase para la manzana
 class Apple:
     def __init__(self):
-        self.size = 30  # Usa el mismo tamaño que en la colisión
+        self.size = 30  
         self.position = [
             random.randrange(arena_left, arena_right - self.size + 1, self.size),
             random.randrange(arena_top, arena_bottom - self.size + 1, self.size)
@@ -266,7 +265,7 @@ def pause_menu():
         pygame.display.flip()
         clock.tick(10)
 
-# Modifica start_game para agregar el botón de pausa
+
 def start_game():
     global puntaje  
     puntaje=0
@@ -324,7 +323,7 @@ def start_game():
 
         pygame.display.flip()
         clock.tick(10)
-# Menú principal con botones organizados
+# Menú principal
 def main_menu():
     start_button = Button(width // 2 - 120, height // 2 + 200, 220, 70, "JUGAR", start_game)
     settings_button = Button(width // 2 - 180, height // 2 + 300, 325, 70, "OPCIONES", show_settings)
